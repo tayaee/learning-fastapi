@@ -1,4 +1,6 @@
 # db
+import json
+
 from sqlalchemy import Boolean
 from sqlalchemy import Column
 from sqlalchemy import Integer
@@ -22,6 +24,13 @@ session = Session()
 
 # models
 Base = declarative_base()
+
+
+class TodoEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Todo):
+            return obj.__dict__
+        return json.JSONEncoder.default(self, obj)
 
 
 class Todo(Base):
