@@ -1,17 +1,10 @@
 import uvicorn
 from fastapi import FastAPI
-from sqlalchemy import URL
+
+from models import Todo
+from models import session
 
 app = FastAPI()
-
-engine_url = URL.create(
-    drivername='mysql+pymysql',
-    username='test',
-    password='test',
-    host='mysql',
-    database='test',
-    port=3306,
-)
 
 
 @app.on_event("startup")
@@ -21,7 +14,17 @@ async def startup_event():
 
 @app.get('/')
 def home():
-    return {'message': 'UP'}
+    todos_query = session.query(Todo)
+    todos = todos_query.all()
+    return todos
+
+
+@app.post('/create')
+async def create_todo(text: str, is_complete: bool = False):
+    todo = Todo(text=text, is_done=is_complete)
+    session.add(todo)
+    session.commit()
+    return {'todo added': todo.text}
 
 
 if __name__ == '__main__':
