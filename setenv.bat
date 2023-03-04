@@ -1,3 +1,4 @@
-set APPNAME=learning-flask-sqlalchemy
-set FINDSTR_REGEX_FOR_PATH=[\\-]3.11.1
-set PATH_TO_BASE_PYTHON=\\rosenas\data\ms\dist\python\3.11.1
+set APPNAME=learning-fastapi
+set PREFERRED_PYTHON_VERSION=3.11.1
+set FINDSTR_REGEX_FOR_PATH=[\\-]%PREFERRED_PYTHON_VERSION%
+set PATH_TO_BASE_PYTHON=\\rosenas\data\ms\dist\python\%PREFERRED_PYTHON_VERSION%
