@@ -39,5 +39,8 @@ class Todo(Base):
     text = Column(String(255))
     is_done = Column(Boolean, default=False)
 
+    def __repr__(self):
+        return str({k: v for k, v in self.__dict__.items() if not k.startswith('_')})
+
 
 Base.metadata.create_all(engine)
